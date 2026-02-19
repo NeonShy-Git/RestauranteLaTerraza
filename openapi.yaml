@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Restaurant Reservation System
+  version: 1.0.0
+  description: >
+    API para la gestión de reservas mediante auto-asignación. 
+    Controla límites por área, capacidades de mesas y evita solapamientos horarios.
+servers:
+  # - url:
+    description: Servidor de producción
+
+paths:
+  /health:
+    get:
+      summary: Estado de salud del servidor
+      responses:
+        '200':
+          description: El servidor está operativo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: "ok" }
+                  timestamp: { type: string, format: date-time }
+
+  /areas:
+    get:
+      summary: Obtener todas las áreas y su ocupación de mesas
+      responses:
+        '200':
+          description: Lista de áreas con sus límites físicos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+
+  /reservations:
+    get:
+      summary: Listar reservas (opcionalmente por fecha y área)
+      parameters:
+        - name: date
+          in: query
+          schema: { type: string, format: date }
+        - name: areaId
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Lista de reservas encontradas
+    
+    post:
+      summary: Crear una reserva (Auto-asignación)
+      description: >
+        El sistema busca la mesa más pequeña disponible que cumpla con la capacidad 
+        y no choque con horarios existentes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [partySize, date, startTime, duration, areaId]
+              properties:
+                partySize: { type: integer, example: 7, description: "Se redondeará a la mesa superior" }
+                date: { type: string, format: date, example: "2024-12-01" }
+                startTime: { type: string, example: "19:00" }
+                duration: { type: integer, example: 90, enum: [90, 120, 180] }
+                areaId: { type: string, example: "TERRACE" }
+      responses:
+        '201':
+          description: Reserva creada y mesa asignada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '409':
+          description: Conflicto - No hay mesas disponibles en ese horario
+        '422':
+          description: Error de validación o capacidad excedida
+
+  /seed:
+    post:
+      summary: Reiniciar y cargar datos iniciales
+      description: Carga las áreas y mesas según el levantamiento inicial del gerente.
+      responses:
+        '200':
+          description: Datos cargados exitosamente
+
+components:
+  schemas:
+    Area:
+      type: object
+      properties:
+        id: { type: string, example: "TERRACE" }
+        name: { type: string, example: "Terraza" }
+        maxTables: { type: integer, example: 8 }
+        currentTableCount: { type: integer, example: 5 }
+
+    Reservation:
+      type: object
+      properties:
+        id: { type: string, example: "res_507f1f" }
+        tableId: { type: string, example: "T-01" }
+        partySize: { type: integer, example: 7 }
+        date: { type: string, example: "2024-12-01" }
+        startTime: { type: string, example: "19:00" }
+        endTime: { type: string, example: "20:30" }
+        status: { type: string, enum: [PENDING, CONFIRMED, CANCELLED] }

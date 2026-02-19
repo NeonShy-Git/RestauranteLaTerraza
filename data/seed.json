@@ -1,0 +1,55 @@
+{
+  "areas": [
+    {
+      "id": "TERRACE",
+      "name": "Terraza",
+      "maxTables": 8,
+      "tables": [
+        { "cap": 2, "qty": 2 },
+        { "cap": 4, "qty": 2 },
+        { "cap": 6, "qty": 2 },
+        { "cap": 8, "qty": 2 }
+      ]
+    },
+    {
+      "id": "PATIO",
+      "name": "Patio",
+      "maxTables": 7,
+      "tables": [
+        { "cap": 2, "qty": 2 },
+        { "cap": 4, "qty": 2 },
+        { "cap": 6, "qty": 2 },
+        { "cap": 8, "qty": 1 }
+      ]
+    },
+    {
+      "id": "LOBBY",
+      "name": "Lobby",
+      "maxTables": 6,
+      "tables": [
+        { "cap": 2, "qty": 2 },
+        { "cap": 4, "qty": 2 },
+        { "cap": 6, "qty": 2 }
+      ]
+    },
+    {
+      "id": "BAR",
+      "name": "Bar",
+      "maxTables": 5,
+      "tables": [
+        { "cap": 2, "qty": 3 },
+        { "cap": 4, "qty": 2 }
+      ]
+    },
+    {
+      "id": "VIP",
+      "name": "Salones VIP",
+      "maxTables": 3,
+      "tables": [
+        { "id": "VIP-REDONDA", "cap": 10, "type": "CIRCULAR" },
+        { "id": "VIP-A", "cap": 4, "type": "VIP_SQUARE" },
+        { "id": "VIP-B", "cap": 4, "type": "VIP_SQUARE" }
+      ]
+    }
+  ]
+}

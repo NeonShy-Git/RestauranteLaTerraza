@@ -186,7 +186,10 @@ app.post('/reservations', (req: Request, res: Response) => {
 
 seedData();
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+// app.listen(PORT, () => {
+app.listen(Number(PORT), '0.0.0.0', () => {
     //Agregar servidor en Render y actualizar URL en openapi.yaml
   console.log(`Servidor corriendo en https://restaurantelaterraza-production.up.railway.app/`);
 });
+

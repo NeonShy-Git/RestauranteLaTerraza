@@ -23,3 +23,5 @@ const testMidnight = () => {
 testTime();
 testMidnight();
 console.log("\n--- Pruebas finalizadas ---");
+
+process.exit(0);

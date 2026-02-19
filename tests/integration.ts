@@ -1,5 +1,5 @@
 async function runSimpleTest() {
-    const URL = "https://restaurantelaterraza-production.up.railway.app";
+    const URL = `http://localhost:${process.env.PORT || 3000}`;
     console.log("--- Iniciando Pruebas Básicas ---");
     const health = await fetch(`${URL}/health`);
     console.log("Salud del servidor:", health.status === 200 ? "OK" : "Error");

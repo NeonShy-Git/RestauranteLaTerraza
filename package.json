@@ -2,12 +2,12 @@
   "name": "restaurante-la-terraza",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "ts-node tests/unit.test.ts",
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

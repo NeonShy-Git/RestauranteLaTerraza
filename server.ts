@@ -1,5 +1,7 @@
 import express from 'express';
+import cors from 'cors';
 import { Request, Response } from 'express';
+
 
 interface Table {
   id: string;
@@ -26,6 +28,15 @@ interface Reservation {
 }
 
 const app = express();
+app.use(cors({
+  origin: [
+    "http://localhost:3000",   // React/Vite
+    "http://localhost:5173",   // Vite default
+    "http://localhost:4200"    // Angular
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 let areas: Area[] = [];

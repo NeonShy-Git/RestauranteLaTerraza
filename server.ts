@@ -30,12 +30,9 @@ interface Reservation {
 const app = express();
 app.use(cors({
   origin: [
-    "http://localhost:3000",   // React/Vite
-    "http://localhost:5173",   // Vite default
-    "http://localhost:4200"    // Angular
-  ],
-  methods: ["GET", "POST", "PATCH", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+    `http://localhost:${process.env.PORT || 3000}`,
+    "https://restaurantelaterraza.onrender.com/"
+  ]
 }));
 app.use(express.json());
 

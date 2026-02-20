@@ -30,9 +30,11 @@ interface Reservation {
 const app = express();
 app.use(cors({
   origin: [
-    `http://localhost:${process.env.PORT || 3000}`,
-    "https://restaurantelaterraza.onrender.com/"
-  ]
+    "http://localhost:5173",
+    "https://lambent-lolly-277b08.netlify.app"
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 
